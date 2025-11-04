@@ -1,6 +1,5 @@
-import {AppThemeProvider} from './contexts/themeContext/AppThemeProvider.tsx';
 import './i18n';
-import {CssBaseline} from "@mui/material";
+import {Box, CssBaseline} from "@mui/material";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./routes/Index.tsx";
 
@@ -18,10 +17,10 @@ function App() {
     //     </AppThemeProvider>
 
     return (
-        <AppThemeProvider>
+        <Box sx={{ bgcolor: "background.default", color: "text.primary", minHeight: "100vh", p: 0.2 }}>
             <CssBaseline/>
             <RouterProvider router={router}/>
-        </AppThemeProvider>
+        </Box>
 
     );
     // );

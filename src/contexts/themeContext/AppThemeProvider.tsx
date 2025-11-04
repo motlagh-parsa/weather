@@ -1,5 +1,5 @@
 import {useState, useMemo, type ReactNode} from 'react';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {createTheme, ThemeProvider, CssBaseline} from '@mui/material';
 import {CacheProvider} from '@emotion/react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -31,35 +31,83 @@ const ThemeWrapper = ({children}: { children: ReactNode }) => {
         [isRTL]
     );
 
-    const theme = useMemo(
-        () =>
-            createTheme({
-                direction: isRTL ? 'rtl' : 'ltr',
-                palette: {
-                    mode,
-                    ...(mode === 'dark' && {
-                        background: {
-                            default: '#1E2337',
-                            paper: '#292F45',
-                        },
-                    }),
-                },
-            }),
-        [mode, isRTL]
-    );
+    const theme = useMemo(() => {
+        const palette =
+            mode === 'dark'
+                ? {
+                    mode: 'dark' as const,
+                    background: {
+                        default: '#1E2337',
+                        paper: '#292F45',
+                        card: '#3F4861',
+                    },
+                    text: {
+                        primary: '#ffffff',
+                        secondary: '#cfcfcf',
+                    },
+                }
+                : {
+                    mode: 'light' as const,
+                    background: {
+                        default: '#F6F8FA',
+                        paper: '#E1E9EE',
+                        card: '#CDD9E0'
+                    },
+                    text: {
+                        primary: '#003464',
+                        secondary: '#555',
+                    },
+                };
 
-    const contextValue: AppThemeContextType = {
-        mode,
-        toggleColorMode,
-    };
+        return createTheme({
+            direction: isRTL ? 'rtl' : 'ltr',
+            palette,
+            typography: {
+                fontFamily: "'Inter', sans-serif",
+                allVariants: { color: palette.text.primary },
+            },
+            components: {
+                MuiCssBaseline: {
+                    styleOverrides: {
+                        body: {
+                            backgroundColor: palette.background.default,
+                            color: palette.text.primary,
+                            transition: 'background-color 0.3s, color 0.3s',
+                        },
+                    },
+                },
+                MuiCard: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: 16,
+                            padding: '1.5rem',
+                            boxShadow: mode === 'dark'
+                                ? '0 4px 12px rgba(0,0,0,0.4)'
+                                : '0 4px 12px rgba(0,0,0,0.08)',
+                            backgroundColor: palette.background.paper,
+                            transition: 'background-color 0.3s, box-shadow 0.3s',
+                        },
+                    },
+                },
+                MuiTypography: {
+                    styleOverrides: {
+                        root: {
+                            color: palette.text.primary,
+                        },
+                    },
+                },
+            },
+        });
+    }, [mode, isRTL]);
+
+    const contextValue: AppThemeContextType = { mode, toggleColorMode };
 
     return (
         <AppThemeContext.Provider value={contextValue}>
             <CacheProvider value={cache}>
                 <ThemeProvider theme={theme}>
-                    <div dir={isRTL ? 'rtl' : 'ltr'}>
-                        {children}
-                    </div>
+                    <CssBaseline />
+                    <div dir={isRTL ? 'rtl' : 'ltr'}>{children}</div>
                 </ThemeProvider>
             </CacheProvider>
         </AppThemeContext.Provider>

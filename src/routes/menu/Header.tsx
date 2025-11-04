@@ -14,7 +14,7 @@ const Header = () => {
                     backgroundColor: 'transparent',
                     boxShadow: 'none',
                 }}>
-            <Toolbar sx={{bgcolor: theme.palette.background.paper}}>
+            <Toolbar sx={{bgcolor: theme.palette.background.default}}>
                 <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                     {t('weather')}
                 </Typography>
