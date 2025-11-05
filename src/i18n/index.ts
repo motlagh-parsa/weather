@@ -33,7 +33,8 @@ const resources = {
             contact_us: 'contact us',
             clear: 'clear',
             clouds: 'clouds',
-            cloudy: 'cloudy'
+            cloudy: 'cloudy',
+            select_city: 'Select City',
         },
     },
     fa: {
@@ -74,7 +75,8 @@ const resources = {
             contact_us: 'تماس با ما',
             clear: 'صاف',
             clouds: 'ابری',
-            cloudy: 'ابری'
+            cloudy: 'ابری',
+            select_city: 'انتخاب شهر'
         },
     },
 };
