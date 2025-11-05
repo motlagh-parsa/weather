@@ -4,13 +4,15 @@ import CurrentWeatherCard from "../weatherComponents/CurrentWeatherCard";
 import TemperatureChart from "../weatherComponents/TemperatureChart";
 import ForecastList from "../weatherComponents/ForecastList";
 import {useWeather} from "../../hooks/useWeather.ts";
+import {useState} from "react";
+import CityAutocomplete from "../../components/CityAutocomplete.tsx";
 
 const Home = () => {
     const theme = useTheme();
 
-    const city = "Tehran";
+    const [selectedCity, setSelectedCity] = useState("Tehran");
 
-    const {data, loading, error} = useWeather(city);
+    const {data, loading, error} = useWeather(selectedCity);
 
     // Safely pick the first forecast item as "current"
     const current = data?.list?.[0] ?? null;
@@ -30,6 +32,12 @@ const Home = () => {
                 gap: 3,
             }}
         >
+            <Box sx={{display: "flex", justifyContent: "flex-end"}}>
+                <CityAutocomplete
+                    defaultCity={selectedCity}
+                    onCitySelect={(city) => setSelectedCity(city.name)}
+                />
+            </Box>
             {/* Top Section */}
             <Grid container spacing={3}>
                 <Grid size={{xs: 12, md: 4}}>
