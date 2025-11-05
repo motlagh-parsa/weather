@@ -1,7 +1,9 @@
 import React from "react";
 import {Box, Chip, Paper, Typography} from "@mui/material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import sunImage from '../../assets/sunny.png'
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import sunImage from "../../assets/sunny.png";
+import {useTranslation} from "react-i18next";
+import i18n from "../../i18n";
 
 interface CurrentWeatherCardProps {
     location?: string;
@@ -12,7 +14,7 @@ interface CurrentWeatherCardProps {
     low?: number;
     date?: string;
     time?: string;
-    image?: string;
+    icon?: string; // OpenWeather icon code (e.g., "04d")
 }
 
 const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
@@ -22,10 +24,17 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
                                                                    feelsLike = 26,
                                                                    high = 27,
                                                                    low = 10,
-                                                                   date = "24 Dec, 2023",
+                                                                   date = "2023-12-24",
                                                                    time = "11:45 AM",
-                                                                   image = "/assets/cloudy.png", // your PNG path
+                                                                   icon,
                                                                }) => {
+    const {t} = useTranslation();
+    const weekday: string = new Date(date).toLocaleDateString(undefined, {weekday: "long"});
+
+    const iconUrl = icon
+        ? `https://openweathermap.org/img/wn/${icon}@2x.png`
+        : sunImage;
+
     return (
         <Paper
             elevation={4}
@@ -38,59 +47,45 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
                 minHeight: 180,
             }}
         >
-            {/* Left side — Text info */}
             <Box>
                 <Box display="flex" alignItems="center" gap={1} mb={1}>
                     <Chip icon={<LocationOnIcon/>} label={location} sx={{fontWeight: 500}}/>
                 </Box>
 
-                <Typography
-                    variant="h5"
-                    sx={{fontWeight: 700, mb: 0.5}}
-                >
-                    Monday
+                <Typography variant="h5" sx={{fontWeight: 700, mb: 0.5}}>
+                    {t(weekday.toLowerCase())}
                 </Typography>
 
                 <Typography variant="body2">
                     {date} &nbsp; | &nbsp; {time}
                 </Typography>
 
-                <Typography
-                    variant="h3"
-                    sx={{fontWeight: 700}}
-                >
-                    {temperature}°C
-                </Typography>
-
-                <Typography variant="h6" sx={{fontWeight: 600}}>
-                    {condition}
+                <Typography variant="h3" sx={{fontWeight: 700}}>
+                    {Math.round(temperature)}°C
                 </Typography>
 
                 <Typography variant="body2">
-                    High: {high} Low: {low}
+                    {`${t('high')}: ${Math.round(high)} ${t('low')}: ${Math.round(low)}`}
                 </Typography>
             </Box>
 
-            <Box>
+            <Box textAlign="center">
                 <Box
                     component="img"
-                    src={sunImage}
-                    alt="weather"
-                    sx={{
-                        height: 120,
-                        width: 120,
-                        objectFit: "contain",
-                    }}
+                    src={iconUrl}
+                    alt={condition}
+                    sx={{height: 120, width: 120, objectFit: "contain"}}
                 />
-                <Typography
-                    variant="h5"
-                    sx={{mb: 0.5}}
-                >
-                    Monday
+
+                <Typography variant="h6" sx={{fontWeight: 600}}>
+                    {t(condition.toLowerCase())}
                 </Typography>
 
-                <Typography variant="body2">
-                    Feels Like {feelsLike}
+                <Typography variant="body2" sx={{mt: 1}}>
+                    {i18n.language === 'en'
+                        ? `${t('feels_like')} ${Math.round(feelsLike)}°C`
+                        : `${Math.round(feelsLike)}°C ${t('feels_like')}`
+                    }
                 </Typography>
             </Box>
         </Paper>

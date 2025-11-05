@@ -1,4 +1,9 @@
-import {redirect} from "react-router-dom";
+import { redirect } from "react-router-dom";
+
+// Custom event to notify components about auth changes
+const dispatchAuthEvent = () => {
+    window.dispatchEvent(new Event('authStateChanged'));
+};
 
 export async function loginAction({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -13,6 +18,9 @@ export async function loginAction({ request }: { request: Request }) {
 
     localStorage.setItem("username", username);
     localStorage.setItem("isAuthenticated", "true");
+
+    // Dispatch custom event to notify components
+    dispatchAuthEvent();
 
     return redirect("/");
 }

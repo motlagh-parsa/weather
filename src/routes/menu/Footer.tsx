@@ -3,10 +3,12 @@ import {Box, Typography, useTheme, Divider, Stack, Link,} from "@mui/material";
 import NadinLogo from "../../assets/nadin-logo.png";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import {useTranslation} from "react-i18next";
 
 const Footer = () => {
     const theme = useTheme();
     const [dateTime, setDateTime] = useState<string>("");
+    const {t} = useTranslation();
 
     useEffect(() => {
         const updateTime = () => {
@@ -68,7 +70,7 @@ const Footer = () => {
                         color="text.secondary"
                         sx={{maxWidth: 400, whiteSpace: 'nowrap'}}
                     >
-                        All rights of this site are reserved for Nadin Sadr Aria Engineering Company.
+                        {t('rights')}
                     </Typography>
                 </Stack>
 
@@ -95,7 +97,7 @@ const Footer = () => {
                             underline="hover"
                             variant="body2"
                         >
-                            contact us: info@nadin.it
+                            {t('contact_us')}: info@nadin.it
                         </Link>
                     </Stack>
 

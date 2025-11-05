@@ -2,6 +2,7 @@ import './i18n';
 import {Box, CssBaseline} from "@mui/material";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./routes/Index.tsx";
+import {AuthProvider} from "./contexts/AuthContext.tsx";
 
 function App() {
     // return (
@@ -17,9 +18,11 @@ function App() {
     //     </AppThemeProvider>
 
     return (
-        <Box sx={{ bgcolor: "background.default", color: "text.primary", minHeight: "100vh", p: 0.2 }}>
-            <CssBaseline/>
-            <RouterProvider router={router}/>
+        <Box sx={{bgcolor: "background.default", color: "text.primary", minHeight: "100vh", p: 0.2}}>
+            <AuthProvider>
+                <CssBaseline/>
+                <RouterProvider router={router}/>
+            </AuthProvider>
         </Box>
 
     );
