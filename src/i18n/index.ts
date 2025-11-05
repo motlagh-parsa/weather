@@ -34,6 +34,7 @@ const resources = {
             clear: 'clear',
             clouds: 'clouds',
             cloudy: 'cloudy',
+            rainy: 'rainy',
             select_city: 'Select City',
         },
     },
@@ -76,6 +77,7 @@ const resources = {
             clear: 'صاف',
             clouds: 'ابری',
             cloudy: 'ابری',
+            rainy: 'بارانی',
             select_city: 'انتخاب شهر'
         },
     },
