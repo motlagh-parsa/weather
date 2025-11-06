@@ -9,7 +9,7 @@ import logo from "../../assets/image1.png";
 import {useCity} from "../../hooks/useCity.ts";
 
 const Header = () => {
-    const { t } = useTranslation() as { t: (key: string) => string };
+    const {t} = useTranslation() as { t: (key: string) => string };
     const theme = useTheme();
     const {isAuthenticated, logout} = useAuth();
     const {selectedCity, setSelectedCity} = useCity();
@@ -17,9 +17,13 @@ const Header = () => {
     return (
         <AppBar position="static" elevation={0} color="transparent"
                 sx={{backgroundColor: 'transparent', boxShadow: 'none'}}>
-            <Toolbar sx={{bgcolor: theme.palette.background.default, display: "flex", justifyContent: "space-between", gap: 2, marginTop: 1}}>
-
-
+            <Toolbar sx={{
+                bgcolor: theme.palette.background.default,
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 2,
+                marginTop: 1
+            }}>
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Box
                         component="img"
@@ -31,13 +35,14 @@ const Header = () => {
                     </Typography>
                 </Stack>
 
-                <Box sx={{flexGrow: 1, display: "flex", justifyContent: "end"}}>
-                    <CityAutocomplete
-                        defaultCity={selectedCity}
-                        onCitySelect={(city) => setSelectedCity(city.name)}
-                    />
-                </Box>
-
+                {isAuthenticated && (
+                    <Box sx={{flexGrow: 1, display: "flex", justifyContent: "end"}}>
+                        <CityAutocomplete
+                            defaultCity={selectedCity}
+                            onCitySelect={(city) => setSelectedCity(city.name)}
+                        />
+                    </Box>
+                )}
                 <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
                     <ThemeToggle/>
                     <LanguageSelector/>

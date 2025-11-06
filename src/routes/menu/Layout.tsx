@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import {Box} from "@mui/material";
+import {Outlet} from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -12,11 +12,11 @@ const Layout = () => {
                 flexDirection: "column",
             }}
         >
-            <Header />
-            <Box sx={{ flex: 1, display: "flex", justifyContent: "center", width: "100%" }}>
-                <Outlet />
+            <Header/>
+            <Box sx={{flex: 1, display: "flex", justifyContent: "center", width: "100%"}}>
+                <Outlet/>
             </Box>
-            <Footer />
+            <Footer/>
         </Box>
     );
 };

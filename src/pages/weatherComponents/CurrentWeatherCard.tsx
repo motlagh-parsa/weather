@@ -28,7 +28,7 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
                                                                }) => {
     const { t } = useTranslation() as { t: (key: string) => string };
     const { localizedDate, localizedTime } = useLocalizedDateTime();
-    const weekday: string = new Date(date).toLocaleDateString(undefined, {weekday: "long"});
+    const weekday: string = new Date(date).toLocaleDateString('en-US', { weekday: "long" });
 
     const iconUrl = icon
         ? `https://openweathermap.org/img/wn/${icon}@2x.png`

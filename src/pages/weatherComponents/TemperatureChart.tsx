@@ -22,29 +22,34 @@ interface TemperatureChartProps {
 
 const TemperatureChart = ({forecast = []}: TemperatureChartProps) => {
     const theme = useTheme();
-    const { t } = useTranslation() as { t: (key: string) => string };
+    const {t} = useTranslation() as { t: (key: string) => string };
 
     // Aggregate forecast data into average monthly temperatures
     const monthly = useMemo(() => {
-        const map = new Map<number, number[]>();
+        const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const tempByMonth = new Map<number, number[]>();
 
         forecast.forEach(item => {
-            const d = new Date(item.dt * 1000);
-            const m = d.getMonth(); // 0..11
-            if (!map.has(m)) map.set(m, []);
-            map.get(m)!.push(item.main.temp);
+            try {
+                const month = new Date(item.dt * 1000).getMonth();
+                const temperatures = tempByMonth.get(month) || [];
+                tempByMonth.set(month, [...temperatures, item.main.temp]);
+            } catch (error: unknown) {
+                console.warn('Invalid date in forecast item:', item, error);
+            }
         });
 
-        const months = Array.from({length: 12}, (_, i) => {
-            const arr = map.get(i) || [];
-            const avg = arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : null;
+        return Array.from({length: 12}, (_, monthIndex) => {
+            const temperatures = tempByMonth.get(monthIndex) || [];
+            const averageTemp = temperatures.length > 0
+                ? Math.round(temperatures.reduce((sum, temp) => sum + temp, 0) / temperatures.length)
+                : 0;
+
             return {
-                month: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
-                temp: avg ?? 0,
+                month: MONTH_NAMES[monthIndex],
+                temp: averageTemp,
             };
         });
-
-        return months;
     }, [forecast]);
 
     return (
