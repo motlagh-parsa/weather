@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {useLanguage} from '../hooks/useLanguage';
 
 const LanguageSelector = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation() as { t: (key: string) => string };
     const {currentLanguage, changeLanguage} = useLanguage();
 
     const handleLanguageToggle = () => {

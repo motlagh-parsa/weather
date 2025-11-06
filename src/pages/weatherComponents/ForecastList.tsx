@@ -10,7 +10,7 @@ interface ForecastListProps {
 
 const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
     const theme = useTheme();
-    const {t} = useTranslation();
+    const { t } = useTranslation() as { t: (key: string) => string };
 
     const getDayName = (timestamp: number) => {
         return new Date(timestamp * 1000).toLocaleDateString("en-US", {

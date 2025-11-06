@@ -13,7 +13,7 @@ import SunCloudAngledRain from "../../assets/Sun-cloud-angled-rain.png";
    Login Component
 --------------------------------*/
 const Login = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation() as { t: (key: string) => string };
     const theme = useTheme();
 
     // New React Router hooks

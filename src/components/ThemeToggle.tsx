@@ -5,7 +5,7 @@ import {useTranslation} from 'react-i18next';
 
 const ThemeToggle = () => {
     const {mode, toggleColorMode} = useAppTheme();
-    const {t} = useTranslation();
+    const { t } = useTranslation() as { t: (key: string) => string };
 
     return (
         <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>

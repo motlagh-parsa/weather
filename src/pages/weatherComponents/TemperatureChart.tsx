@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import {Paper, Typography, useTheme} from "@mui/material";
 import {useMemo} from "react";
+import {useTranslation} from "react-i18next";
 
 type ForecastItem = {
     dt: number;
@@ -17,11 +18,11 @@ type ForecastItem = {
 
 interface TemperatureChartProps {
     forecast: ForecastItem[];
-    city?: string;
 }
 
-const TemperatureChart = ({forecast = [], city}: TemperatureChartProps) => {
+const TemperatureChart = ({forecast = []}: TemperatureChartProps) => {
     const theme = useTheme();
+    const { t } = useTranslation() as { t: (key: string) => string };
 
     // Aggregate forecast data into average monthly temperatures
     const monthly = useMemo(() => {
@@ -63,7 +64,7 @@ const TemperatureChart = ({forecast = [], city}: TemperatureChartProps) => {
                 mb={1.5}
                 sx={{fontSize: "0.85rem"}}
             >
-                Average Monthly Temperature {city ? `- ${city}` : ""}
+                {t('Average_Monthly_Temperature')}
             </Typography>
 
             <ResponsiveContainer width="100%" height="100%">

@@ -1,20 +1,17 @@
-// src/pages/Home.tsx
 import {Box, Grid, useTheme, CircularProgress, Typography} from "@mui/material";
 import CurrentWeatherCard from "../weatherComponents/CurrentWeatherCard";
 import TemperatureChart from "../weatherComponents/TemperatureChart";
 import ForecastList from "../weatherComponents/ForecastList";
 import {useWeather} from "../../hooks/useWeather.ts";
-import {useState} from "react";
-import CityAutocomplete from "../../components/CityAutocomplete.tsx";
+import {useCity} from "../../hooks/useCity.ts";
 
 const Home = () => {
     const theme = useTheme();
 
-    const [selectedCity, setSelectedCity] = useState("Tehran");
+    const {selectedCity} = useCity();
 
     const {data, loading, error} = useWeather(selectedCity);
 
-    // Safely pick the first forecast item as "current"
     const current = data?.list?.[0] ?? null;
     const cityInfo = data?.city ?? null;
     const forecastList = data?.list ?? [];
@@ -23,7 +20,6 @@ const Home = () => {
         <Box
             sx={{
                 width: "100%",
-                minHeight: "100vh",
                 bgcolor: theme.palette.background.default,
                 px: 4,
                 py: 3,
@@ -32,13 +28,6 @@ const Home = () => {
                 gap: 3,
             }}
         >
-            <Box sx={{display: "flex", justifyContent: "flex-end"}}>
-                <CityAutocomplete
-                    defaultCity={selectedCity}
-                    onCitySelect={(city) => setSelectedCity(city.name)}
-                />
-            </Box>
-            {/* Top Section */}
             <Grid container spacing={3}>
                 <Grid size={{xs: 12, md: 4}}>
                     {loading ? (

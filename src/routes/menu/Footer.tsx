@@ -1,39 +1,19 @@
-import {useEffect, useState} from "react";
 import {Box, Typography, useTheme, Divider, Stack, Link,} from "@mui/material";
 import NadinLogo from "../../assets/nadin-logo.png";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import {useTranslation} from "react-i18next";
+import {useLocalizedDateTime} from "../../hooks/useLocalizedDateTime";
 
 const Footer = () => {
     const theme = useTheme();
-    const [dateTime, setDateTime] = useState<string>("");
-    const {t} = useTranslation();
-
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            const options: Intl.DateTimeFormatOptions = {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            };
-            setDateTime(now.toLocaleString("en-GB", options));
-        };
-
-        updateTime();
-        const timer = setInterval(updateTime, 1000);
-        return () => clearInterval(timer);
-    }, []);
+    const { t } = useTranslation() as { t: (key: string) => string };
+    const { localizedDate, localizedTime } = useLocalizedDateTime();
 
     return (
         <Box
             component="footer"
             sx={{
-                mt: 6,
                 pt: 3,
                 pb: 2,
                 borderTop: `1px solid ${theme.palette.divider}`,
@@ -65,12 +45,8 @@ const Footer = () => {
                                 theme.palette.mode === "dark" ? "brightness(1.2)" : "none",
                         }}
                     />
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{maxWidth: 400, whiteSpace: 'nowrap'}}
-                    >
-                        {t('rights')}
+                    <Typography variant="body2" color="text.secondary">
+                        {t("rights")}
                     </Typography>
                 </Stack>
 
@@ -83,6 +59,7 @@ const Footer = () => {
                     }}
                 />
 
+                {/* Right side: Contact + Date */}
                 <Stack
                     direction="row"
                     alignItems="center"
@@ -97,17 +74,16 @@ const Footer = () => {
                             underline="hover"
                             variant="body2"
                         >
-                            {t('contact_us')}: info@nadin.it
+                            {t("contact_us")}: info@nadin.it
                         </Link>
                     </Stack>
 
                     <Stack direction="row" alignItems="center" spacing={1}>
                         <CalendarMonthIcon fontSize="small" color="action"/>
                         <Typography variant="body2" color="text.secondary">
-                            {dateTime}
+                            {localizedTime} {localizedDate}
                         </Typography>
                     </Stack>
-
                 </Stack>
             </Box>
         </Box>

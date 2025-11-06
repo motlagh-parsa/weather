@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {type Forecast16DayResponse, weatherService} from "../services/weather/weatherApi.ts";
 
 export const useWeather = (city: string) => {
@@ -23,7 +23,7 @@ export const useWeather = (city: string) => {
                 const forecastData = await weatherService.get16DayForecast.byCity(city);
                 console.log('📦 Weather data set:', forecastData);
                 setData(forecastData);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 console.error('💥 Error in useWeather:', err);
                 setError(err.message || 'Failed to fetch weather data');
             } finally {
@@ -32,8 +32,11 @@ export const useWeather = (city: string) => {
             }
         };
 
-        fetchWeather();
+        fetchWeather().catch((err: unknown) => {
+            console.error('💥 Unhandled error in fetchWeather:', err);
+            setError('Unexpected error occurred');
+        });
     }, [city]);
 
-    return { data, loading, error };
+    return {data, loading, error};
 };

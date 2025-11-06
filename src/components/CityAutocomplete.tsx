@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {Autocomplete, TextField, CircularProgress} from "@mui/material";
-import {geoService} from "../services/geoService.tsx";
+import {Autocomplete, TextField, CircularProgress, type AutocompleteRenderInputParams} from "@mui/material";
+import {geoService} from "../services/geoService.ts";
 import {useTranslation} from "react-i18next";
 
 interface CityOption {
@@ -20,7 +20,7 @@ const CityAutocomplete: React.FC<CityAutocompleteProps> = ({onCitySelect, defaul
     const [options, setOptions] = useState<CityOption[]>([]);
     const [inputValue, setInputValue] = useState(defaultCity || "");
     const [loading, setLoading] = useState(false);
-    const {t} = useTranslation()
+    const {t} = useTranslation() as { t: (key: string) => string };
 
     useEffect(() => {
         const delayDebounce = setTimeout(async () => {
@@ -48,7 +48,7 @@ const CityAutocomplete: React.FC<CityAutocompleteProps> = ({onCitySelect, defaul
             onChange={(_, value) => {
                 if (typeof value !== "string" && value) onCitySelect(value);
             }}
-            renderInput={(params) => (
+            renderInput={(params: AutocompleteRenderInputParams) => (
                 <TextField
                     {...params}
                     label={t("select_city")}
