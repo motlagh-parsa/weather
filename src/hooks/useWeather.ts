@@ -23,9 +23,9 @@ export const useWeather = (city: string) => {
                 const forecastData = await weatherService.get16DayForecast.byCity(city);
                 console.log('📦 Weather data set:', forecastData);
                 setData(forecastData);
-            } catch (err: unknown) {
+            } catch (err) {
                 console.error('💥 Error in useWeather:', err);
-                setError(err.message || 'Failed to fetch weather data');
+                setError('Failed to fetch weather data');
             } finally {
                 console.log('🏁 Fetch completed');
                 setLoading(false);

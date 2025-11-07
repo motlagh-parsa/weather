@@ -14,6 +14,7 @@ interface CurrentWeatherCardProps {
     high?: number;
     low?: number;
     icon?: string;
+    date?: string;
 }
 
 const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({

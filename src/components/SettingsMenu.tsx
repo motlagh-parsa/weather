@@ -12,14 +12,14 @@ const SettingsMenu = () => {
     const { isAuthenticated, logout } = useAuth();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const open = Boolean(anchorEl as boolean);
+    const open = Boolean(anchorEl ?? false);
     const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) =>
         setAnchorEl(e.currentTarget);
     const handleClose = () => setAnchorEl(null);
 
     return (
         <Box>
-            <IconButton onClick={handleOpen} color="inherit">
+            <IconButton onClick={handleOpen} >
                 <SettingsIcon />
             </IconButton>
 

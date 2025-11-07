@@ -47,10 +47,6 @@ const Home = () => {
                             high={current.main.temp_max}
                             low={current.main.temp_min}
                             date={new Date(current.dt * 1000).toLocaleDateString()}
-                            time={new Date(current.dt * 1000).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit"
-                            })}
                             icon={data?.list[0].weather[0].icon}
                         />
                     ) : (
@@ -64,7 +60,7 @@ const Home = () => {
                             <CircularProgress/>
                         </Box>
                     ) : (
-                        <TemperatureChart forecast={forecastList} city={cityInfo?.name}/>
+                        <TemperatureChart forecast={forecastList}/>
                     )}
                 </Grid>
             </Grid>
