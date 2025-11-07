@@ -28,7 +28,7 @@ const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
             }}
         >
             <Typography variant="subtitle1" fontWeight={600} mb={2}>
-                2 Weeks Forecast
+                {t('two_weeks_forecast')}
             </Typography>
 
             <Stack

@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import {initReactI18next} from "react-i18next";
 
 const resources = {
     en: {
@@ -43,7 +43,9 @@ const resources = {
             dark: 'Dark',
             mode: 'Mode',
             language: 'Language',
-            logout: 'Logout'
+            logout: 'Logout',
+            rain: 'rain',
+            two_weeks_forecast: '2 Weeks Forecast'
         }
     },
     fa: {
@@ -95,18 +97,19 @@ const resources = {
             mode: 'حالت روشنایی',
             language: 'زبان',
             logout: 'خروج',
+            rain: 'بارانی',
+            two_weeks_forecast: 'پیش بینی 2 هفته'
         }
     }
 };
 
-// ✅ Get saved language (persisted across refresh)
 const savedLang = localStorage.getItem("language") || "en";
 
 i18n.use(initReactI18next).init({
     resources,
     lng: savedLang,
     fallbackLng: "en",
-    interpolation: { escapeValue: false }
+    interpolation: {escapeValue: false}
 });
 i18n.on("languageChanged", (lng) => {
     localStorage.setItem("language", lng);
