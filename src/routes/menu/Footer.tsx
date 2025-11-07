@@ -37,6 +37,7 @@ const Footer = () => {
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Box
                         component="img"
+                        loading='lazy'
                         src={NadinLogo}
                         alt="Nadin Logo"
                         sx={{

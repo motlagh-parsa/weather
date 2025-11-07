@@ -30,7 +30,7 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
     const {localizedDate, localizedTime} = useLocalizedDateTime();
     const weekday: string = new Date(date).toLocaleDateString('en-US', {weekday: "long"});
 
-    const iconUrl = icon`https://openweathermap.org/img/wn/${icon}@2x.png`
+    const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`
 
     return (
         <Paper
@@ -69,6 +69,7 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
             <Box textAlign="center">
                 <Box
                     component="img"
+                    loading='lazy'
                     src={iconUrl}
                     alt={condition}
                     sx={{height: 120, width: 120, objectFit: "contain"}}
@@ -88,4 +89,6 @@ const CurrentWeatherCard: React.FC<CurrentWeatherCardProps> = ({
     );
 };
 
-export default CurrentWeatherCard;
+export default React.memo(CurrentWeatherCard, (prev, next) =>
+    JSON.stringify(prev) === JSON.stringify(next)
+);

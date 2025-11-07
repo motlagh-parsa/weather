@@ -1,6 +1,5 @@
 import React from "react";
 import {Box, Paper, Typography, Stack, useTheme} from "@mui/material";
-import SunIcon from "../../assets/sunny.png";
 import type {ForecastDay} from "../../services/weather/weatherApi";
 import {useTranslation} from "react-i18next";
 
@@ -10,7 +9,7 @@ interface ForecastListProps {
 
 const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
     const theme = useTheme();
-    const { t } = useTranslation() as { t: (key: string) => string };
+    const {t} = useTranslation() as { t: (key: string) => string };
 
     const getDayName = (timestamp: number) => {
         return new Date(timestamp * 1000).toLocaleDateString("en-US", {
@@ -67,9 +66,7 @@ const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
                 {forecast.slice(0, 16).map((f, i) => {
                     const day = getDayName(f.dt);
                     const temp = Math.round(f.main.temp);
-                    const iconUrl = f.weather?.[0]?.icon
-                        ? `https://openweathermap.org/img/wn/${f.weather[0].icon}@2x.png`
-                        : SunIcon;
+                    const iconUrl = `https://openweathermap.org/img/wn/${f.weather[0].icon}@2x.png`;
 
                     return (
                         <Box
@@ -119,6 +116,7 @@ const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
 
                             <Box
                                 component="img"
+                                loading='lazy'
                                 src={iconUrl}
                                 alt={f.weather?.[0]?.main || "weather"}
                                 sx={{
@@ -142,4 +140,6 @@ const ForecastList: React.FC<ForecastListProps> = ({forecast}) => {
     );
 };
 
-export default ForecastList;
+export default React.memo(ForecastList, (prev, next) =>
+    JSON.stringify(prev) === JSON.stringify(next)
+);

@@ -1,12 +1,13 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import Layout from "./menu/Layout";
-import Login from "../pages/login/Login";
 import { loginAction } from "../pages/login/LoginAction";
-import Home from "../pages/home/Home.tsx";
 import ProtectedRoute from "./routeAccess/ProtectedRoute.tsx";
 import PublicRoute from "./routeAccess/PublicRoute.tsx";
 import { NotFound } from "./menu/NotFound.tsx";
+import {lazy} from "react";
 
+const Login = lazy(() => import("../pages/login/Login"));
+const Home = lazy(() => import("../pages/home/Home.tsx"));
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<Layout />}>

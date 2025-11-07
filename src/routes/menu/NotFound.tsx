@@ -6,6 +6,7 @@ export const NotFound = () => {
         <Box sx={{textAlign: 'center', display: 'flex', flexDirection: 'column'}}>
             <Box
                 component="img"
+                loading='lazy'
                 src={MoonCloudMidRain}
                 alt="Moon Cloud Mid Rain"
                 sx={{

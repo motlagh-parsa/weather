@@ -8,7 +8,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import {Paper, Typography, useTheme} from "@mui/material";
-import {useMemo} from "react";
+import React, {useMemo} from "react";
 import {useTranslation} from "react-i18next";
 
 type ForecastItem = {
@@ -24,7 +24,6 @@ const TemperatureChart = ({forecast = []}: TemperatureChartProps) => {
     const theme = useTheme();
     const {t} = useTranslation() as { t: (key: string) => string };
 
-    // Aggregate forecast data into average monthly temperatures
     const monthly = useMemo(() => {
         const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const tempByMonth = new Map<number, number[]>();
@@ -129,4 +128,6 @@ const TemperatureChart = ({forecast = []}: TemperatureChartProps) => {
     );
 };
 
-export default TemperatureChart;
+export default React.memo(TemperatureChart, (prev, next) =>
+    JSON.stringify(prev) === JSON.stringify(next)
+);

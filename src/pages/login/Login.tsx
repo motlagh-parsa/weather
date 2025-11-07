@@ -92,6 +92,7 @@ const Login = () => {
                 >
                     <Box
                         component="img"
+                        loading='lazy'
                         src={MoonCloudMidRain}
                         alt="Moon Cloud Mid Rain"
                         sx={{
@@ -103,6 +104,7 @@ const Login = () => {
                     />
                     <Box
                         component="img"
+                        loading='lazy'
                         src={MoonCloudFastWind}
                         alt="Moon Cloud Fast Wind"
                         sx={{
@@ -114,6 +116,7 @@ const Login = () => {
                     />
                     <Box
                         component="img"
+                        loading='lazy'
                         src={SunCloudAngledRain}
                         alt="Sun Cloud Angled Rain"
                         sx={{
