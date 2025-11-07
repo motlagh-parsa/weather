@@ -3,7 +3,7 @@ import {Box, CssBaseline} from "@mui/material";
 import {RouterProvider} from "react-router-dom";
 import {router} from "./routes/Index.tsx";
 import {AuthProvider} from "./contexts/AuthContext.tsx";
-import {CityProvider} from "./contexts/CityProvider.tsx";
+import {CityProvider} from "./contexts/cityContext/CityProvider.tsx";
 
 function App() {
     return (
