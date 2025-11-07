@@ -39,7 +39,12 @@ const resources = {
             rainy: "rainy",
             select_city: "Select City",
             weather_dashboard: "Weather Dashboard",
-            Average_Monthly_Temperature: "Average Monthly Temperature"
+            Average_Monthly_Temperature: "Average Monthly Temperature",
+            light: 'Light',
+            dark: 'Dark',
+            mode: 'Mode',
+            language: 'Language',
+            logout: 'Logout'
         }
     },
     fa: {
@@ -85,7 +90,12 @@ const resources = {
             rainy: "بارانی",
             select_city: "انتخاب شهر",
             weather_dashboard: "داشبورد آب و هوا",
-            Average_Monthly_Temperature: "میانگین دمای ماهانه"
+            Average_Monthly_Temperature: "میانگین دمای ماهانه",
+            light: 'روشن',
+            dark: 'تاریک',
+            mode: 'حالت روشنایی',
+            language: 'زبان',
+            logout: 'خروج',
         }
     }
 };

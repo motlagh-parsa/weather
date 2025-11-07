@@ -13,7 +13,7 @@ const Layout = () => {
             }}
         >
             <Header/>
-            <Box sx={{flex: 1, display: "flex", justifyContent: "center", width: "100%"}}>
+            <Box sx={{display: "flex", justifyContent: "center", width: "100%", alignItems: 'center'}}>
                 <Outlet/>
             </Box>
             <Footer/>

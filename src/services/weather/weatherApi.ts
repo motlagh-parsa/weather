@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
+import type {AxiosRequestConfig, AxiosResponse} from "axios";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 export interface Forecast16DayResponse {
     cod: string;
@@ -22,21 +23,12 @@ export interface ForecastDay {
         humidity: number;
     };
     weather: Weather[];
-    clouds: {
-        all: number;
-    };
-    wind: {
-        speed: number;
-        deg: number;
-    };
+    clouds: { all: number };
+    wind: { speed: number; deg: number };
     visibility: number;
     pop: number;
-    rain?: {
-        '3h': number;
-    };
-    snow?: {
-        '3h': number;
-    };
+    rain?: { "3h": number };
+    snow?: { "3h": number };
     dt_txt: string;
 }
 
@@ -50,10 +42,7 @@ export interface Weather {
 export interface City {
     id: number;
     name: string;
-    coord: {
-        lat: number;
-        lon: number;
-    };
+    coord: { lat: number; lon: number };
     country: string;
     population: number;
     timezone: number;
@@ -69,24 +58,35 @@ const weatherApi = axios.create({
 export const weatherService = {
     get16DayForecast: {
         byCity: async (city: string, country?: string): Promise<Forecast16DayResponse> => {
-            console.log('🌤️ Making API request for city:', city);
+            console.log("🌤️ Making API request for city:", city);
+
+            const params: Record<string, string | number> = {
+                q: country ? `${city},${country}` : city,
+                cnt: 16,
+                appid: API_KEY,
+                units: "metric",
+            };
+
+            const config: AxiosRequestConfig<unknown> = {params};
 
             try {
-                const response = await weatherApi.get('/forecast', {
-                    params: {
-                        q: country ? `${city},${country}` : city,
-                        cnt: 16,
-                        appid: API_KEY,
-                        units: 'metric',
-                    },
-                });
-
-                console.log('API Response received:', response.data);
+                const response: AxiosResponse = await weatherApi.get<Forecast16DayResponse>("/forecast", config);
+                console.log("API Response received:", response.data);
                 return response.data;
-            } catch (error: unknown) {
-                console.error('API Error:', error.response?.data || error.message);
-                throw error;
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error("API Error:", error.response?.data || error.message);
+                    throw new Error(
+                        typeof error.response?.data === "string"
+                            ? error.response.data
+                            : "Failed to fetch weather data"
+                    );
+                }
+                console.error("Unexpected Error:", error);
+                throw new Error("Unknown error occurred");
             }
         },
     },
 };
+
+export {};
