@@ -56,7 +56,7 @@ const Login = () => {
                         variant="outlined"
                         fullWidth
                         error={!!actionData?.error}
-                        helperText={actionData?.error}
+                        helperText={t(actionData?.error ?? '')}
                         disabled={isSubmitting}
                         sx={{
                             mb: 3,

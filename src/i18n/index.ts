@@ -45,7 +45,8 @@ const resources = {
             language: 'Language',
             logout: 'Logout',
             rain: 'rain',
-            two_weeks_forecast: '2 Weeks Forecast'
+            two_weeks_forecast: '2 Weeks Forecast',
+            Please_enter_at_least_2_characters: 'Please enter at least 2 characters'
         }
     },
     fa: {
@@ -98,7 +99,8 @@ const resources = {
             language: 'زبان',
             logout: 'خروج',
             rain: 'بارانی',
-            two_weeks_forecast: 'پیش بینی 2 هفته'
+            two_weeks_forecast: 'پیش بینی 2 هفته',
+            Please_enter_at_least_2_characters: 'لطفا حداقل 2 کاراکتر وارد کنید'
         }
     }
 };
