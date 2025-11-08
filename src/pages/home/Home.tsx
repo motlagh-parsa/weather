@@ -62,13 +62,7 @@ const Home = () => {
                             </Box>
                         }
                     >
-                        {loading ? (
-                            <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", height: 260}}>
-                                <CircularProgress/>
-                            </Box>
-                        ) : (
-                            <TemperatureChart forecast={forecastList}/>
-                        )}
+                        <TemperatureChart forecast={forecastList}/>
                     </Suspense>
                 </Grid>
             </Grid>
