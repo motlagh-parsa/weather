@@ -9,7 +9,7 @@ export async function loginAction({request}: { request: Request }) {
     const username = formData.get("username")?.toString().trim();
 
     if (!username || username.length < 2) {
-        return {error: "Please enter at least 2 characters"};
+        return {error: "Please_enter_at_least_2_characters"};
     }
 
     await new Promise((res) => setTimeout(res, 400));
