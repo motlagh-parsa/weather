@@ -1,12 +1,12 @@
-import { Box, Button, TextField, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { Form, useActionData, useNavigation } from "react-router-dom";
+import {Box, Button, TextField, Typography, useTheme, useMediaQuery} from "@mui/material";
+import {useTranslation} from "react-i18next";
+import {Form, useActionData, useNavigation} from "react-router-dom";
 import MoonCloudMidRain from "../../assets/Moon-cloud-mid-rain.png";
 import MoonCloudFastWind from "../../assets/Moon-cloud-fast-wind.png";
 import SunCloudAngledRain from "../../assets/Sun-cloud-angled-rain.png";
 
 const Login = () => {
-    const { t } = useTranslation() as { t: (key: string) => string };
+    const {t} = useTranslation() as { t: (key: string) => string };
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -18,10 +18,10 @@ const Login = () => {
         <Box
             sx={{
                 display: "flex",
-                flexDirection: { xs: "column", md: "row" },
+                flexDirection: {xs: "column", md: "row"},
                 width: "100%",
                 maxWidth: 960,
-                height: { xs: "auto", md: 560 },
+                height: {xs: "auto", md: 560},
                 border: "1px solid",
                 borderColor: theme.palette.divider,
                 borderRadius: 2,
@@ -29,13 +29,13 @@ const Login = () => {
                 bgcolor: theme.palette.background.default,
                 boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
                 mx: "auto",
-                my: { xs: 4, md: 8 },
+                my: {xs: 4, md: 8},
             }}
         >
             <Box
                 sx={{
                     flex: 1,
-                    p: { xs: 4, md: 6 },
+                    p: {xs: 4, md: 6},
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
@@ -44,7 +44,7 @@ const Login = () => {
             >
                 <Typography
                     variant="h5"
-                    sx={{ mb: 3, textAlign: "center", fontWeight: 600 }}
+                    sx={{mb: 3, textAlign: "center", fontWeight: 600}}
                 >
                     {t("Login")}
                 </Typography>
@@ -60,7 +60,7 @@ const Login = () => {
                         disabled={isSubmitting}
                         sx={{
                             mb: 3,
-                            input: { color: theme.palette.text.primary },
+                            input: {color: theme.palette.text.primary},
                         }}
                     />
 

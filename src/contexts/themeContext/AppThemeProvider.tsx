@@ -1,17 +1,17 @@
-import { useState, useMemo, useEffect, type ReactNode } from "react";
+import {useState, useMemo, useEffect, type ReactNode} from "react";
 import {
     createTheme,
     ThemeProvider,
     CssBaseline,
     type ThemeOptions,
 } from "@mui/material";
-import { CacheProvider } from "@emotion/react";
+import {CacheProvider} from "@emotion/react";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
-import { prefixer } from "stylis";
-import { useTranslation } from "react-i18next";
-import { AppThemeContext } from "./AppThemeContext";
-import type { AppThemeContextType, ThemeMode } from "../../types/theme";
+import {prefixer} from "stylis";
+import {useTranslation} from "react-i18next";
+import {AppThemeContext} from "./AppThemeContext";
+import type {AppThemeContextType, ThemeMode} from "../../types/theme";
 
 interface AppThemeProviderProps {
     children: ReactNode;
@@ -23,8 +23,8 @@ declare module "@mui/material/styles" {
     }
 }
 
-const ThemeWrapper = ({ children }: { children: ReactNode }) => {
-    const { i18n } = useTranslation();
+const ThemeWrapper = ({children}: { children: ReactNode }) => {
+    const {i18n} = useTranslation();
 
     const [mode, setMode] = useState<ThemeMode>(
         (localStorage.getItem("themeMode") as ThemeMode) || "light"
@@ -40,6 +40,10 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
 
     const isRTL = i18n.language === "fa";
 
+    const fontFamily = isRTL
+        ? "'IRANYekan', sans-serif"
+        : "'Inter', sans-serif";
+
     const cache = useMemo(
         () =>
             createCache({
@@ -49,7 +53,6 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
         [isRTL]
     );
 
-    // ✅ Build palette safely
     const palette =
         mode === "dark"
             ? {
@@ -77,20 +80,20 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
                 },
             };
 
-    // ✅ Type assertion ensures ThemeOptions compatibility
     const theme = useMemo(
         () =>
             createTheme({
                 direction: isRTL ? "rtl" : "ltr",
-                palette: palette as ThemeOptions["palette"], // ✅ Fix type error safely
+                palette: palette as ThemeOptions["palette"],
                 typography: {
-                    fontFamily: "'Inter', sans-serif",
-                    allVariants: { color: palette.text.primary },
+                    fontFamily,
+                    allVariants: {color: palette.text.primary},
                 },
                 components: {
                     MuiCssBaseline: {
                         styleOverrides: {
                             body: {
+                                fontFamily,
                                 backgroundColor: palette.background.default,
                                 color: palette.text.primary,
                                 transition: "background-color 0.3s, color 0.3s",
@@ -113,7 +116,7 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
                     },
                     MuiTypography: {
                         styleOverrides: {
-                            root: { color: palette.text.primary },
+                            root: {color: palette.text.primary},
                         },
                     },
                 },
@@ -121,13 +124,13 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
         [mode, isRTL]
     );
 
-    const contextValue: AppThemeContextType = { mode, toggleColorMode };
+    const contextValue: AppThemeContextType = {mode, toggleColorMode};
 
     return (
         <AppThemeContext.Provider value={contextValue}>
             <CacheProvider value={cache}>
                 <ThemeProvider theme={theme}>
-                    <CssBaseline />
+                    <CssBaseline/>
                     <div dir={isRTL ? "rtl" : "ltr"}>{children}</div>
                 </ThemeProvider>
             </CacheProvider>
@@ -135,6 +138,6 @@ const ThemeWrapper = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export const AppThemeProvider = ({ children }: AppThemeProviderProps) => (
+export const AppThemeProvider = ({children}: AppThemeProviderProps) => (
     <ThemeWrapper>{children}</ThemeWrapper>
 );

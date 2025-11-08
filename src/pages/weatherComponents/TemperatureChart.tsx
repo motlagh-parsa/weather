@@ -57,7 +57,7 @@ const TemperatureChart = ({forecast = []}: TemperatureChartProps) => {
             sx={{
                 p: 2.5,
                 borderRadius: 3,
-                height: 250,
+                height: 235,
                 display: "flex",
                 flexDirection: "column",
             }}

@@ -1,6 +1,6 @@
+import React, {useState, useEffect} from "react";
 import {Box, Typography, ToggleButtonGroup, ToggleButton, Divider} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {useState, useEffect} from "react";
 
 const LanguageSelector = () => {
     const {i18n} = useTranslation();
@@ -10,16 +10,18 @@ const LanguageSelector = () => {
     const handleChange = (_: React.MouseEvent<HTMLElement>, newLang: string | null) => {
         if (newLang) {
             setLang(newLang);
-            i18n.changeLanguage(newLang);
-            localStorage.setItem("language", newLang);
+            i18n.changeLanguage(newLang).finally(() => {
+                localStorage.setItem("language", newLang);
+            });
         }
     };
 
     useEffect(() => {
         const savedLang = localStorage.getItem("language");
         if (savedLang) {
-            setLang(savedLang);
-            i18n.changeLanguage(savedLang);
+            i18n.changeLanguage(savedLang).finally(() => {
+                setLang(savedLang);
+            });
         }
     }, [i18n]);
 
@@ -40,7 +42,7 @@ const LanguageSelector = () => {
                     width: "100%",
                     "& .MuiToggleButton-root": {
                         flex: 1,
-                        height: '45px',
+                        height: '40px',
                         fontSize: "0.875rem",
                         textTransform: "none",
                         borderRadius: 1,

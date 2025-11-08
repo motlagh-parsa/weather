@@ -1,4 +1,4 @@
-import axios, {type AxiosRequestConfig } from "axios";
+import axios, {type AxiosRequestConfig} from "axios";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
@@ -18,7 +18,7 @@ export const geoService = {
 
         try {
             const response = await axios.get(url, config);
-            return response.data; // [{ name, country, lat, lon, state }]
+            return response.data;
         } catch (error) {
             console.error("Geo search error:", error);
             return [];

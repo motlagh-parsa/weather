@@ -58,7 +58,7 @@ const weatherApi = axios.create({
 export const weatherService = {
     get16DayForecast: {
         byCity: async (city: string, country?: string): Promise<Forecast16DayResponse> => {
-            console.log("🌤️ Making API request for city:", city);
+            console.log("Making API request for city:", city);
 
             const params: Record<string, string | number> = {
                 q: country ? `${city},${country}` : city,

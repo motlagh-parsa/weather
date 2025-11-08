@@ -7,8 +7,8 @@ import {useLocalizedDateTime} from "../../hooks/useLocalizedDateTime";
 
 const Footer = () => {
     const theme = useTheme();
-    const { t } = useTranslation() as { t: (key: string) => string };
-    const { localizedDate, localizedTime } = useLocalizedDateTime();
+    const {t} = useTranslation() as { t: (key: string) => string };
+    const {localizedDate, localizedTime} = useLocalizedDateTime();
 
     return (
         <Box

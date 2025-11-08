@@ -1,3 +1,4 @@
+import React from "react";
 import {ToggleButtonGroup, ToggleButton, Typography, Box} from "@mui/material";
 import {Brightness4, Brightness7} from "@mui/icons-material";
 import {useAppTheme} from "../hooks/useAppTheme";
@@ -5,14 +6,14 @@ import {useTranslation} from "react-i18next";
 
 const ThemeToggle = () => {
     const {mode, toggleColorMode} = useAppTheme();
-    const { t } = useTranslation() as { t: (key: string) => string };
+    const {t} = useTranslation() as { t: (key: string) => string };
 
     const handleChange = (_: React.MouseEvent<HTMLElement>, newMode: "light" | "dark" | null) => {
         if (newMode && newMode !== mode) toggleColorMode();
     };
 
     return (
-        <Box sx={{display: "flex", flexDirection: "column", alignItems: "start", width: '100%', direction:'ltr'}}>
+        <Box sx={{display: "flex", flexDirection: "column", alignItems: "start", width: '100%', direction: 'ltr'}}>
             <Typography variant="subtitle1" fontWeight={600} sx={{mb: 1}}>
                 {t('mode')}
             </Typography>
@@ -28,6 +29,7 @@ const ThemeToggle = () => {
                         flex: 1,
                         fontSize: "0.875rem",
                         textTransform: "none",
+                        height: '45px',
                         borderRadius: 1,
                         borderColor: "divider",
                         fontWeight: 500,
